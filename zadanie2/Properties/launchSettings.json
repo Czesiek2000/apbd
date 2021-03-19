@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "cwiczenia2": {
+      "commandName": "Project",
+      "commandLineArgs": "\"data\\dane.csv\" \"output\\output.json\" json"
+    }
+  }
+}
