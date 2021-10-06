@@ -1,0 +1,53 @@
+﻿@page "/add"
+@using cwiczenia11.Models;
+<h3 style="text-decoration: underline">Student's details</h3>
+
+<EditForm Model="Student">
+
+    <div class="form-group">
+        <label>First name:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Student.FirstName" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Last name:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Student.LastName" />
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label>Birtdate:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Student.Birthdate" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Studies:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Student.Studies" />
+        </div>
+    </div>
+    @Student.FirstName, @Student.LastName, @Student.Birthdate, @Student.Studies
+</EditForm>
+
+@*<div class="col">
+
+    <label>Avatar:</label>
+    <input type="type" name="FirstName" value="Avatar link" />
+    <img src="https://i.pinimg.com/736x/3f/94/70/3f9470b34a8e3f526dbdb022f9f19cf7.jpg"/>
+</div>*@
+
+@*<button class="btn btn-success" @onclick="Return">Return</button>*@
+@code {
+    public Student Student { get; set; }
+    @*private void Return ()
+    {
+        NavigationManager.NavigateTo("/students");
+    }*@
+    protected override void OnInitialized ()
+    {
+        Student = new Student();
+    }
+}

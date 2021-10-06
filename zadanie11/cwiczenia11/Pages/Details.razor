@@ -1,0 +1,65 @@
+﻿@page "/details/{Id:int}"
+
+<h3 style="text-decoration: underline">Student's details</h3>
+<div class="row">
+    <div class="col">
+        <span>FirstName: </span>
+        <span>@student.FirstName</span>
+    
+    <div class="mt-3">
+        <span>LastName: </span>
+        <span>@student.LastName</span>
+    </div>
+
+    <div class="mt-3">
+        <span>Birtdate: </span>
+        <span>@student.Birthdate</span>
+    </div>
+
+    <div class="mt-3">
+        <span>Studies: </span>
+        <span>@student.Studies</span>
+    </div>
+    </div>
+    <div class="col">
+        <span>Avatar</span>
+        @*<InputText @bind-value="avatar"/>*@
+        <br />
+        <img src="" alt="image preview" />
+    </div>
+</div>
+    <a class="btn btn-rounded bg-primary" href="/students">Return</a>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private List<Student> students;
+
+    Student student;
+    string avatar = "";
+
+protected override void OnInitialized ()
+{
+        students = new List<Student>();
+        students.Add( new Student
+        {
+            Id = 1,
+            FirstName = "Jan",
+            LastName = "Kowalski",
+            Birthdate = "5/24/2021",
+            Studies = "Informatyka"
+        } );
+
+        students.Add( new Student
+        {
+            Id = 2,
+            FirstName = "Anna",
+            LastName = "Kowalska",
+            Birthdate = "5/25/2021",
+            Studies = "Informatyka"
+        } );
+
+        student = new Student();
+        student = students.Where( s => s.Id == Id ).FirstOrDefault();
+    }
+}

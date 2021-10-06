@@ -1,0 +1,57 @@
+﻿@page "/students"
+@using cwiczenia11.Models
+<h3>Student</h3>
+
+<table class="table table-bordered">
+    <tr>
+        <th class="col">Avatar</th>
+        <th class="col">First name</th>
+        <th class="col">Last name</th>
+        <th class="col">Birthdate</th>
+        <th class="col">Studies</th>
+    </tr>
+    @foreach ( var s in students )
+    {
+        <tr>
+            <td class="col"><img src="/icon.png" asp-append-version="true" style="width: 100px" /></td>
+            <td class="col">@s.FirstName</td>
+            <td class="col">@s.LastName</td>
+            <td class="col">@s.Birthdate</td>
+            <td class="col">@s.Studies</td>
+            <td @onclick="() => RemoveStudent(s.FirstName)" class="btn btn-danger btn-rounded btn-sm my-0">X</td>
+        </tr>
+    }
+</table>
+
+@code {
+
+    private List<Student> students;
+
+    protected override void OnInitialized ()
+    {
+        students = new List<Student>();
+        students.Add( new Student
+        {
+            Id = 1,
+            FirstName = "Jan",
+            LastName = "Kowalski",
+            Birthdate = "5/24/2021",
+            Studies = "Informatyka"
+        } );
+
+        students.Add( new Student
+        {
+            Id = 2,
+            FirstName = "Anna",
+            LastName = "Kowalska",
+            Birthdate = "5/25/2021",
+            Studies = "Informatyka"
+        } );
+    }
+
+    private void RemoveStudent(string name)
+    {
+        students.RemoveAll(s => s.FirstName == name);
+    }
+
+}
