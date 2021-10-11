@@ -1,0 +1,35 @@
+﻿@page "/movies"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@attribute [Authorize]
+@inject HttpClient httpClient
+
+<h3>Movies</h3>
+<div>
+    <h3>In theaters</h3>
+    <MoviesList Movies="MoviesList" />
+</div>
+
+@code {
+
+    private List<Movie> MoviesList;
+    protected async override Task OnInitializedAsync()
+    {
+        await GetMovies();
+    }
+
+    private async Task GetMovies()
+    {
+        var responseHTTP = await httpClient.GetAsync("https://localhost:44311/api/movies");
+
+        if (responseHTTP.IsSuccessStatusCode)
+        {
+            var responseString = await responseHTTP.Content.ReadAsStringAsync();
+            MoviesList = System.Text.Json.JsonSerializer.Deserialize<List<Movie>>(responseString, new System.Text.Json.JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+        }
+        else
+        {
+            //error
+        }
+    }
+}
